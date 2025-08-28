@@ -37,6 +37,39 @@
     img{max-width:100%; display:block;}
     a{color:inherit; text-decoration:none}
     .container{width:92%; max-width:var(--maxw); margin-inline:auto}
+    /* ✅ Mobile fixes */
+@media (max-width: 640px){
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-image { order: -1; margin-bottom: 20px; } /* if you want image first */
+
+  .programs-grid,
+  .news-grid,
+  .about-grid,
+  .admissions-content,
+  .contact-content {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Navbar mobile menu full width */
+  .nav-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  .nav-link {
+    padding: 12px;
+    text-align: center;
+  }
+
+  iframe {
+    width: 100% !important;
+    height: 300px;
+  }
+
+  .form-group input, .form-group select, .form-group textarea {
+    font-size: 16px;  /* better for mobile keyboards */
+  }
+}
 
     /* ===== Navbar ===== */
     .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(10px);
@@ -431,7 +464,7 @@
 
 </section>
     <div class="footer-bottom">
-      <p>© 2025 EAV Kivumu TSS. Uburenganzira bwose burabitswe.</p>
+      <p>ARASUBIZWA Honore © 2025 EAV Kivumu TSS. Uburenganzira bwose burabitswe.</p>
     </div>
   </footer>
 
@@ -457,7 +490,7 @@ async function sendMessage(e) {
     alert("Murakoze kutwandikira!");
   } else {
     alert("Habaye ikibazo: " + result.error);
-  }
+  }  
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('nav-menu');
     hamburger.addEventListener('click',()=>{
