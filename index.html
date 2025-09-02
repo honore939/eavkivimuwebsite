@@ -91,6 +91,55 @@
   padding: 2rem;
   border-radius: 1rem;
 }
+/* ===== Fix Responsive Images for Mobile ===== */
+img {
+  max-width: 100%;
+  height: auto;      /* Ifoto izajya ihinduka proportional */
+  display: block;
+  border-radius: 10px; /* optional: kuryoshya edges */
+}
+
+/* Hero image (slider) */
+.hero-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Events images */
+.event-card img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;     /* optional: ntiyarenza uburebure runaka */
+  object-fit: cover;
+}
+
+/* News images */
+.news-card img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+}
+
+/* About section image */
+.about-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .event-card img,
+  .news-card img {
+    max-height: 180px; /* ntoya neza muri smartphones */
+  }
+
+  .hero-image img {
+    max-height: 280px; /* hero igumemo neza muri screen ntoya */
+  }
+}
 /* ===== EVENTS SECTION ===== */
 .events {
   padding: 60px 0;
