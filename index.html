@@ -37,7 +37,7 @@
     img{max-width:100%; display:block;}
     a{color:inherit; text-decoration:none}
     .container{width:92%; max-width:var(--maxw); margin-inline:auto}
-    /* ✅ Mobile fixes */
+    /*  Mobile fixes */
 @media (max-width: 640px){
   .hero-content { grid-template-columns: 1fr; }
   .hero-image { order: -1; margin-bottom: 20px; } /* if you want image first */
@@ -70,6 +70,112 @@
     font-size: 16px;  /* better for mobile keyboards */
   }
 }
+.hero-image {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background-image 1s ease-in-out;
+}
+
+/* optional dark overlay */
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+/* ===== EVENTS SECTION ===== */
+.events {
+  padding: 60px 0;
+  background: #f9f9f9;
+}
+
+.events .section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.events .section-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.events .section-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.event-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.event-content {
+  padding: 18px;
+}
+
+.event-date {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0066cc;
+  margin-bottom: 6px;
+}
+
+.event-content h3 {
+  font-size: 20px;
+  margin: 8px 0;
+  color: #222;
+}
+
+.event-content p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.read-more {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.read-more:hover {
+  color: #004080;
+  text-decoration: underline;
+}
+
 
     /* ===== Navbar ===== */
     .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(10px);
@@ -195,6 +301,7 @@
         <a href="#about" class="nav-link">Abo turi bo</a>
         <a href="#academics" class="nav-link">Ibyiciro by'Amasomo</a>
         <a href="#admissions" class="nav-link">Kwinjira</a>
+        <a href="#events" class="nav-link">Ibikorwa & Events</a>
         <a href="#news" class="nav-link">Amakuru</a>
         <a href="#contact" class="nav-link">Tuvugishe</a>
       </nav>
@@ -219,6 +326,12 @@
       </div>
       <div class="hero-image">
         <img src="ishuri.jpeg" alt="EAV Kivumu TSS Campus"/>
+        <div class="hero-image slider">
+  <img src="ishuri.jpeg" alt="Campus View 1" class="slide active"/>
+  <img src="sod.jpeg" alt="Campus View 2" class="slide"/>
+  <img src="computer.jpeg" alt="Campus View 3" class="slide"/>
+</div>
+
       </div>
     </div>
   </section>
@@ -354,6 +467,48 @@
       </div>
     </div>
   </section>
+    <!-- ===== Events ===== -->
+  <section id="events" class="events">
+    <div class="container">
+      <div class="section-header">
+        <h2>Ibikorwa & Events</h2>
+        <p>Ibikorwa by’abanyeshuri, ababyeyi ndetse n’abafatanyabikorwa bacu.</p>
+      </div>
+      <div class="events-grid">
+        <!-- Event 1 -->
+        <div class="event-card">
+          <img src="ababyeyi.jpg" alt="Inama y’Ababyeyi" />
+          <div class="event-content">
+            <span class="event-date">20 Ukwakira 2025</span>
+            <h3>Inama y’Ababyeyi</h3>
+            <p>Ababyeyi bose barasabwa kwitabira inama yiga ku myigire n’imyitwarire y’abana babo.</p>
+            <a href="#" class="read-more">Soma byinshi</a>
+          </div>
+        </div>
+        <!-- Event 2 -->
+        <div class="event-card">
+          <img src="graduation.jpg" alt="Graduation Ceremony" />
+          <div class="event-content">
+            <span class="event-date">30 Ugushyingo 2025</span>
+            <h3>Ibirori byo Gusoza Amasomo</h3>
+            <p>Abanyeshuri barangije bazahabwa impamyabumenyi mu birori byihariye bizabera ku kigo.</p>
+            <a href="#" class="read-more">Soma byinshi</a>
+          </div>
+        </div>
+        <!-- Event 3 -->
+        <div class="event-card">
+          <img src="Birden.jpg" alt="Exposition of Projects" />
+          <div class="event-content">
+            <span class="event-date">25 Nzeri 2025</span>
+            <h3>Imurikabikorwa ry’Imishinga</h3>
+            <p>Abanyeshuri ba TVET bazamurika imishinga ya tekinoloji, ubwubatsi, ubuhinzi n’ubuvuzi bw’amatungo.</p>
+            <a href="#" class="read-more">Soma byinshi</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ===== News ===== -->
   <section id="news" class="news">
@@ -461,7 +616,6 @@
   loading="lazy" 
   referrerpolicy="no-referrer-when-downgrade">
 </iframe>
-
 </section>
     <div class="footer-bottom">
       <p>ARASUBIZWA Honore © 2025 EAV Kivumu TSS. Uburenganzira bwose burabitswe.</p>
