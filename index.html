@@ -4,242 +4,670 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EAV Kivumu TSS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ====== CSS: Single-file (you can split into style.css later) ====== -->
+  
   <style>
-    :root{
-      --bg:#000fff;          /* slate-900 */
-      --panel:#000000;       /* gray-900 */
-      --card:#06b6d4;        /* custom */
-      --muted:#94a3b8;       /* slate-400 */
-      --text:#e5e7eb;        /* gray-200 */
-      --brand:#06b6d4;       /* cyan-500 */
-      --brand-2:#22c55e;     /* green-500 */
-      --accent:#f59e0b;      /* amber-500 */
-      --ring: rgba(6,182,212,.35);
-      --shadow: 0 10px 30px rgba(7,1,0,.35);
-      --radius: 18px;
-      --radius-lg: 24px;
-      --maxw: 1200px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height:1.65; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(34,197,94,.08), transparent 60%),
-                          radial-gradient(900px 500px at 100% 0%, rgba(6,182,212,.10), transparent 60%),
-                          var(--bg);
-      min-height:100dvh; overflow-x:hidden;
-    }
-    img{max-width:100%; display:block;}
-    a{color:inherit; text-decoration:none}
-    .container{width:92%; max-width:var(--maxw); margin-inline:auto}
-    /*  Mobile fixes */
-@media (max-width: 640px){
-  .hero-content { grid-template-columns: 1fr; }
-  .hero-image { order: -1; margin-bottom: 20px; } /* if you want image first */
-
-  .programs-grid,
-  .news-grid,
-  .about-grid,
-  .admissions-content,
-  .contact-content {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Navbar mobile menu full width */
-  .nav-menu {
-    width: 100%;
-    left: 0;
-    right: 0;
-  }
-  .nav-link {
-    padding: 12px;
-    text-align: center;
-  }
-
-  iframe {
-    width: 100% !important;
-    height: 300px;
-  }
-
-  .form-group input, .form-group select, .form-group textarea {
-    font-size: 16px;  /* better for mobile keyboards */
-  }
-}
-.hero-image {
-  height: 100vh;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: background-image 1s ease-in-out;
+ /* ===== CSS Variables ===== */
+:root {
+  --brand: #2563eb;
+  --brand-2: #0ea5e9;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --background: #020617;
+  --ring: rgba(37, 99, 235, 0.3);
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* optional dark overlay */
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
-  padding: 2rem;
-  border-radius: 1rem;
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-/* ===== Fix Responsive Images for Mobile ===== */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 img {
   max-width: 100%;
-  height: auto;      /* Ifoto izajya ihinduka proportional */
-  display: block;
-  border-radius: 10px; /* optional: kuryoshya edges */
-}
-
-/* Hero image (slider) */
-.hero-image img {
-  width: 100%;
   height: auto;
-  object-fit: cover;
 }
 
-/* Events images */
-.event-card img {
-  width: 100%;
-  height: auto;
-  max-height: 220px;     /* optional: ntiyarenza uburebure runaka */
-  object-fit: cover;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* News images */
-.news-card img {
-  width: 100%;
-  height: auto;
-  max-height: 220px;
-  object-fit: cover;
+ul {
+  list-style: none;
 }
 
-/* About section image */
-.about-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
+/* ===== Navbar ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(1.2) blur(10px);
+  background: rgba(15, 23, 42, 0.6);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 }
 
-/* Mobile tweaks */
-@media (max-width: 640px) {
-  .event-card img,
-  .news-card img {
-    max-height: 180px; /* ntoya neza muri smartphones */
-  }
-
-  .hero-image img {
-    max-height: 280px; /* hero igumemo neza muri screen ntoya */
-  }
-  /* Background image with white fallback */
-.bg-ishuri {
-  background: #fff url("ishuri.jpeg") no-repeat center center;
-  background-size: cover;   /* Ifoto yihindura ikuzura screen yose */
-  width: 100%;
-  min-height: 100vh;        /* Ijye ifata screen yose ku smartphone */
+.nav-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.school-name {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-link {
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: white;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #cbd5e1;
+  transition: 0.25s;
+}
+
+/* ===== Hero ===== */
+.hero {
+  padding: 72px 0 46px;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.hero-title {
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1.12;
+  margin: 0 0 10px;
+  font-weight: 900;
+}
+
+.hero-subtitle {
+  color: #cbd5e1;
+  margin: 0 0 22px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand), #3b82f6);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #1f2937, #0b1226);
+  color: white;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.hero-image::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  background: radial-gradient(500px 240px at 10% 0%, rgba(34, 197, 94, 0.12), transparent 40%);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+}
+
+.hero-image img {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  width: 100%;
+  height: auto;
+}
+
+/* Hero Slider */
+.hero-image .slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.hero-image .slide {
+  display: none;
+  width: 100%;
+  transition: opacity 0.5s ease;
+}
+
+.hero-image .slide.active {
+  display: block;
+}
+
+/* ===== Sections Generic ===== */
+section {
+  scroll-margin-top: 90px;
+  padding: 56px 0;
+}
+
+.section-header {
   text-align: center;
-  color: #222;              /* Text ku ifoto ntihindure color neza */
-  padding: 40px 20px;
-}
-}
-/* ===== EVENTS SECTION ===== */
-.events {
-  padding: 60px 0;
-  background: #f9f9f9;
+  margin-bottom: 26px;
 }
 
-.events .section-header {
+h2 {
+  font-size: clamp(22px, 3.6vw, 34px);
+  margin: 0 0 6px;
+  letter-spacing: 0.2px;
+}
+
+h3 {
+  margin: 18px 0 8px;
+}
+
+/* ===== About ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.about-card {
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.35));
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 22px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stat {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 16px;
+  border-radius: 14px;
   text-align: center;
-  margin-bottom: 40px;
 }
 
-.events .section-header h2 {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #222;
+.stat-number {
+  font-size: 22px;
+  font-weight: 800;
+  display: block;
 }
 
-.events .section-header p {
-  font-size: 16px;
-  color: #555;
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
 }
 
+/* ===== Programs ===== */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.program-card {
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.08), rgba(6, 182, 212, 0.03));
+  border: 1px solid rgba(6, 182, 212, 0.18);
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+}
+
+.program-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.program-card p {
+  color: #cbd5e1;
+  margin: 6px 0 0;
+}
+
+/* ===== Admissions ===== */
+.admissions-content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+}
+
+.process-steps {
+  display: grid;
+  gap: 12px;
+}
+
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.step-number {
+  background: linear-gradient(135deg, var(--brand-2), var(--brand));
+  color: white;
+  font-weight: 900;
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+
+.admission-requirements {
+  background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.03));
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.requirements-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.requirements-list li {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.important-dates {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.2);
+}
+
+/* ===== Events ===== */
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .event-card {
-  background: #fff;
-  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.3));
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
 }
 
 .event-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
 }
 
 .event-card img {
+  height: 160px;
   width: 100%;
-  height: 180px;
   object-fit: cover;
 }
 
 .event-content {
-  padding: 18px;
+  padding: 14px;
 }
 
 .event-date {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #0066cc;
-  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
 }
 
-.event-content h3 {
-  font-size: 20px;
-  margin: 8px 0;
-  color: #222;
+/* ===== News ===== */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
-.event-content p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 12px;
+.news-card {
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.3));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-card img {
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 14px;
+}
+
+.news-date {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
 }
 
 .read-more {
-  font-size: 14px;
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--brand);
   font-weight: 600;
-  color: #0066cc;
-  text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .read-more:hover {
-  color: #004080;
-  text-decoration: underline;
+  color: var(--brand-2);
 }
 
+/* ===== Contact ===== */
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
 
-    /* ===== Navbar ===== */
+.contact-item {
+  margin-bottom: 12px;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #0b1226;
+  color: var(--text);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  outline: none;
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--brand), #3b82f6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Footer ===== */
+.footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(2, 6, 23, 0.7);
+  margin-top: 36px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.social-link {
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(148, 163, 184, 0.1);
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(148, 163, 184, 0.2);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 12px 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ===== Map Section ===== */
+#nyange-location {
+  padding: 40px 0;
+  background: rgba(2, 6, 23, 0.4);
+}
+
+#nyange-location h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#nyange-location iframe {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px) {
+  .hero-content,
+  .about-grid,
+  .admissions-content,
+  .contact-content,
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .news-grid,
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 64px;
+    right: 4%;
+    left: 4%;
+    flex-direction: column;
+    background: rgba(2, 6, 23, 0.95);
+    padding: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .news-grid,
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.nav-menu.open {
+  display: flex;
+}
+
+/* Animation for hamburger menu */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Animation for hero slider */
+@keyframes slide {
+  0%, 25% {
+    opacity: 1;
+  }
+  30%, 100% {
+    opacity: 0;
+  }
+}
+
+.hero-image .slide {
+  animation: slide 15s infinite;
+}
+
+.hero-image .slide:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.hero-image .slide:nth-child(3) {
+  animation-delay: 10s;
+}
+ /* ===== Navbar ===== */
     .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(10px);
       background:rgba(15,23,42,.6); border-bottom:1px solid rgba(148,163,184,.12)}
     .nav-container{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
@@ -388,10 +816,6 @@ img {
       </div>
       <div class="hero-image">
         <img src="ishuri.jpeg" alt="EAV Kivumu TSS Campus"/>
-        <div class="hero-image slider">
-  <img src="ishuri.jpeg" alt="Campus View 1" class="slide active"/>
-  <img src="sod.jpeg" alt="Campus View 2" class="slide"/>
-  <img src="computer.jpeg" alt="Campus View 3" class="slide"/>
 </div>
 
       </div>
